@@ -1,0 +1,9 @@
+CustomMetric:
+  Type: AWS::Logs::MetricFilter
+  Properties:
+    LogGroupName: !Sub /aws/lambda/${AWS::StackName}
+    FilterPattern: '[str="REPORT", ..., str="Max", str="Memory", str="Used:", MaxMemoryUsed, str="MB"]'
+    MetricTransformations:
+      - MetricNamespace: Organization/Project/Service
+        MetricName: MaxMemoryUsed
+        MetricValue: $MaxMemoryUsed
